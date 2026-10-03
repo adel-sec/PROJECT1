@@ -11,16 +11,21 @@ int main(){
 int choice =0;
 string sure; 
   //اكرم
-	
+string doctor_name[10];
+string doctor_department[10];
+int doctor_working_hours[10];
 int doctor_ID[10];
-  //مصطفئ
+int doctor_data[10][10][10]; 
+	
+	
+	//مصطفئ
 int patient_ID[10];
 string patient_name[10];
 int patient_age[10];
-int patient_data[10][10][10][10][10][10][10][10];
+int patient_data[10][10][10][10][10][10][10];
 float patient_temperture[10];
 string patient_department[10];
-float patient_pressure[10];
+int patient_pressure[10];
 string blood_type[10];
 	do{
   
