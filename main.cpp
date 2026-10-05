@@ -18,7 +18,7 @@ string departments[5] = {"Emergency", "Internal Medicine", "Pediatrics", "Surger
     string doctor_department[10] = {"Surgery", "Pediatrics","Emergency","Internal Medicine","Dental"};
     int doctor_working_hours[10] = {8, 6,12,7,5};
     int doctor_ID[10] = {101, 102, 103, 104, 105,};
-	 int doctor_choice;
+	 
 	
 	//مصطفئ
 int patient_ID[10];
@@ -233,6 +233,7 @@ string blood_type[10];
            }while(true);          
     	break;
     	case 2:
+			int doctor_choice;
     	 do {
         cout << "\n--- Doctor Management System ---\n";
         cout << "1. Add New Doctor\n";
@@ -248,6 +249,7 @@ string blood_type[10];
     }
     while(doctor_choice < 1 || doctor_choice > 5);
 
+			
     switch (doctor_choice) {
         case 1: {
             if (doctor_count < 10) {
