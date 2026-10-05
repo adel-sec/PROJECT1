@@ -376,6 +376,94 @@ string blood_type[10];
    
     	break;
     	case 3:
+
+			 int dept_menu_choice;
+
+    do {
+        cout << "\n====================================\n";
+        cout << "     Hospital Departments Module    \n";
+        cout << "====================================\n";
+        cout << "1. Display All Departments\n";
+        cout << "2. Select Department & Verify\n";
+        cout << "3. Show Doctors in Department\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice (1-4): ";
+        cin >> dept_menu_choice;
+
+        switch (dept_menu_choice) {
+            case 1: {
+                cout << "\n--- Available Hospital Departments ---\n";
+                for (int i = 0; i < 5; i++) {
+                    cout << (i + 1) << ". " << departments[i] << "\n";
+                }
+                break;
+            }
+
+            case 2: {
+                int dept_choice;
+                do {
+                    cout << "\nSelect Department (1-5): ";
+                    cin >> dept_choice;
+
+                    if (dept_choice < 1 || dept_choice > 5) {
+                        cout << "[ERROR] Invalid choice! Please enter a number between 1 and 5.\n";
+                    }
+                } while (dept_choice < 1 || dept_choice > 5);
+
+                string selected_dept = departments[dept_choice - 1];
+
+                cout << "\n------------------------------------\n";
+                cout << "Selected Department: " << selected_dept << "\n";
+                cout << "Status: Verified Successfully\n";
+                cout << "------------------------------------\n";
+                break;
+            }
+
+            case 3: {
+                int dept_choice;
+                do {
+                    cout << "\nSelect Department to view its doctors (1-5):\n";
+                    for (int i = 0; i < 5; i++) {
+                        cout << (i + 1) << ". " << departments[i] << "\n";
+                    }
+                    cout << "Enter choice: ";
+                    cin >> dept_choice;
+
+                    if (dept_choice < 1 || dept_choice > 5) {
+                        cout << "[ERROR] Invalid choice! Please enter a number between 1 and 5.\n";
+                    }
+                } while (dept_choice < 1 || dept_choice > 5);
+
+                string target_dept = departments[dept_choice - 1];
+
+                cout << "\n--- Doctors in " << target_dept << " ---\n";
+                bool found = false;
+                for (int i = 0; i < doctor_count; i++) {
+                    if (doctor_department[i] == target_dept) {
+                        cout << "ID: " << doctor_ID[i]
+                             << " | Name: " << doctor_name[i]
+                             << " | Hours: " << doctor_working_hours[i] << " hrs\n";
+                        found = true;
+                    }
+                }
+                if (!found) {
+                    cout << "No doctors assigned to this department.\n";
+                }
+                break;
+            }
+
+            case 4: {
+                cout << "\nExiting Departments System...\n";
+                break;
+            }
+
+            default: {
+                cout << "\n[ERROR] Invalid choice! Please select between 1 and 4.\n";
+                break;
+            }
+        }
+
+    } while (dept_menu_choice != 4);
         choice =0;
 
 
