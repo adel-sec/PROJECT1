@@ -12,12 +12,13 @@ int main(){
 int choice =0;
 string sure; 
   //اكرم
-string doctor_name[10];
-string doctor_department[10];
-int doctor_working_hours[10];
-int doctor_ID[10];
-int doctor_data[10][10][10]; 
-	
+string departments[5] = {"Emergency", "Internal Medicine", "Pediatrics", "Surgery", "Dental"};
+    int doctor_count = 5;
+    string doctor_name[10] = {"Dr. Ali", "Dr. Sarah","Dr.Khaled","Dr.omer","Mona"};
+    string doctor_department[10] = {"Surgery", "Pediatrics","Emergency","Internal Medicine","Dental"};
+    int doctor_working_hours[10] = {8, 6,12,7,5};
+    int doctor_ID[10] = {101, 102, 103, 104, 105,};
+	 int doctor_choice;
 	
 	//مصطفئ
 int patient_ID[10];
@@ -232,17 +233,144 @@ string blood_type[10];
            }while(true);          
     	break;
     	case 2:
-    	do{
+    	 do {
+        cout << "\n--- Doctor Management System ---\n";
+        cout << "1. Add New Doctor\n";
+        cout << "2. Display All Doctors\n";
+        cout << "3. Search Doctor by ID\n";
+        cout << "4. Display Doctors by Department\n";
+        cout<<  "5. Exit\n";
+        cout << "Enter your choice (1-5): ";
+        cin >> doctor_choice;
+        if (doctor_choice < 1 || doctor_choice > 5) {
+            cout << "Invalid choice! Please enter a number between 1 and 5.\n";
+        }
+    }
+    while(doctor_choice < 1 || doctor_choice > 5);
 
-    	    	  choice =0;
-    	   cout <<bold+green+"===========================\n";    	   
-           cout <<bold+red+"     doctors managements ";
-    	   cout <<bold+green+"===========================\n";
-           
+    switch (doctor_choice) {
+        case 1: {
+            if (doctor_count < 10) {
+                cout << "\n--- Add New Doctor ---\n";
+
+                cout << "Enter Doctor ID: ";
+                cin >> doctor_ID[doctor_count];
+
+                cout << "Enter Doctor Name: ";
+                cin >> doctor_name[doctor_count];
+
+                cout << "Enter Department: ";
+                cin >> doctor_department[doctor_count];
+
+                cout << "Enter Working Hours: ";
+                cin >> doctor_working_hours[doctor_count];
+
+                doctor_count++;
+                cout << "Doctor added successfully!\n";
+            }
+
+            else {
+                cout << "Error: Cannot add more doctors. Hospital limit reached (Max 10)!\n";
+            }
+            break;
+        }
 
 
+        case 2: {
 
-          }while(true);
+            if (doctor_count == 0) {
+                cout << "\nNo doctors registered in the system yet!\n";
+            } else{
+                cout << "\n--- List of All Doctors ---\n";
+                for (int i = 0; i < doctor_count; i++) {
+                    cout << "Doctor #" << (i + 1) << endl;
+                    cout << "ID: " << doctor_ID[i] << endl;
+                    cout << "Name: " << doctor_name[i] << endl;
+                    cout << "Department: " << doctor_department[i] << endl;
+                    cout << "Working Hours: " << doctor_working_hours[i] << " hrs" << endl;
+                }
+            }
+            break;
+        }
+        case 3: {
+            if (doctor_count == 0) {
+                cout << "\nNo doctors registered to search!\n";
+            } else {
+                int search_id;
+                bool found = false;
+
+                cout << "\nEnter Doctor ID to search: ";
+                cin >> search_id;
+
+                for (int i = 0; i < doctor_count; i++) {
+                    if (doctor_ID[i] == search_id) {
+                        cout << "    Doctor Found    ";
+                        cout << "ID: " << doctor_ID[i] << endl;
+                        cout << "Name: " << doctor_name[i] << endl;
+                        cout << "Department: " << doctor_department[i] << endl;
+                        cout << "Working Hours: " << doctor_working_hours[i] << " hrs" << endl;
+                        found = true;
+                        break; // هنا يخرج لمن يحصل المريض
+                    }
+                }
+
+                if (!found) {
+                    cout << "Doctor with ID " << search_id << " not found!\n";
+                }
+            }
+            break;
+        }
+        case 4: {
+            if (doctor_count == 0) {
+                cout << "\nNo doctors registered to filter by department!\n";
+            } else {
+                int dept_choice;
+                cout << "\nSelect Department:\n";
+                for (int i = 0; i < 5; i++) {
+                    cout << (i + 1) << ". " << departments[i] << endl;
+                }
+                cout << "Enter department choice (1-5): ";
+                cin >> dept_choice;
+
+                if (dept_choice >= 1 && dept_choice <= 5) {
+                    string selected_dept = departments[dept_choice - 1];
+                    bool found = false;
+
+                    cout << "\n--- Doctors in " << selected_dept << " ---\n";
+                    for (int i = 0; i < doctor_count; i++) {
+                        if (doctor_department[i] == selected_dept) {
+                            cout << "ID: " << doctor_ID[i] << endl;
+                            cout << "Name: " << doctor_name[i] << endl;
+                            cout << "Working Hours: " << doctor_working_hours[i] << " hrs" << endl;
+                            cout << "-----------------------\n";
+                            found = true;
+                        }
+                    }
+
+                    if (!found) {
+                        cout << "No doctors found in this department.\n";
+                    }
+                } else {
+                    cout << "Invalid department choice!\n";
+                }
+            }
+            break;
+        }
+        case 5: {
+            cout << "\nReturning to Main System Menu...\n";
+            break;
+        }
+
+        default: {
+            cout << "Invalid choice! Please select between 1 and 5.\n";
+            break;
+        }
+
+    }
+
+    while (doctor_choice !=5) ;
+
+
    
     	break;
     	case 3:
