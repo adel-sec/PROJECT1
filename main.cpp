@@ -29,9 +29,15 @@ float patient_temperture[10];
 string patient_department[10];
 int patient_pressure[10];
 string blood_type[10];
+
+
+int normal_count = 0;
+int emergency_count = 0;
+float highest_temperature=0;
+float total_temperature=0;
+float average_temperatur=0;
 	do{
-  
-	cout << green+"===========================\n"+bold;
+  	cout << green+"===========================\n"+bold;
 	cout << blue+"       the ststem of the hostptil"+bold<<endl;
 	cout << green+"===========================\n"+bold;
     cout << yellow+" 1)  patient management  \n";
@@ -470,13 +476,109 @@ string blood_type[10];
     	break;
     	case 4:
   	   choice =0;
-
-
-    	break;
-    	case 5:
-   	   choice =0;
-
-
+            case 5: {
+                choice =0;
+            
+                do {
+                    cout << clear;
+                    cout << bold + green + "===========================\n";
+                    cout << bold + blue + "      Hospital Statistics\n";
+                    cout << bold + green + "===========================\n";
+                    cout << red+"1) total patients\n";
+                    cout << red+"2) emergency patients\n";
+                    cout << red+"3) normal patients\n";
+                    cout << red+"4)total doctors\n";
+                    cout << red+"5) highest temperature\n";
+                    cout << red+") average temperature\n";
+                    cout << bold+red+"7) quite\n";
+                    cout << bold + red + "Enter your choice: ";
+                    cin >> choice;
+                         switch (choice) {
+            
+                        case 1: 
+                            cout <<bold+blue +"\ntotal patients: " << patient_count <<endl;
+                            break;
+                       
+                        case 2: 
+                             for (int i = 0; i < patient_count; i++) {
+                                if (patient_department[i] == "Emergency") {
+                                    emergency_count++;
+                                }
+                            }
+                            cout << bold+red+"\nemergency patients: "
+                                 << emergency_count << endl;
+                            break;
+                        
+            
+                        case 3: 
+                           
+                            for (int i = 0; i < patient_count; i++) {
+                                if (patient_department[i] != "Emergency") {
+                                    normal_count++;
+                                }
+                            }
+                            cout << bold+blue+"\nnormal patients: "
+                                 << normal_count << endl;
+                            break;
+            
+                        case 4: 
+                            cout << bold+blue+"\ntotal doctors: "
+                                 << doctor_count << endl;
+                            break;
+                        case 5: 
+                            if (patient_count == 0) {
+                                cout <<bold+red+ "\nno patients yet\n";
+                                break;
+                            }
+            
+                             highest_temperature = patient_temperture[0];
+            
+                            for (int i = 1; i < patient_count; i++) {
+                                if (patient_temperture[i] > highest_temperature) {
+                                    highest_temperature = patient_temperture[i];
+                                }
+                            }
+            
+                            cout <<bold+red+ "\nhighest temperature: "
+                                 << highest_temperature << endl;
+                            break;
+                        
+            
+                        case 6: 
+                            if (patient_count == 0) {
+                                cout <<bold+red+ "\nno patients yet ";
+                                break;                            }
+            
+                                       
+                            for (int i = 0; i < patient_count; i++) {
+                                total_temperature += patient_temperture[i];
+                            }
+            
+                            average_temperatur =total_temperature / patient_count;
+            
+                            cout << "\naverage temperature: "
+                                 << average_temperatur << endl;
+                            break;
+                        
+            
+                        case 7: 
+                            cout << "\ngoing to main menu\n";
+                            break;
+                        
+            
+                        default: 
+                            cout << red+bold+"wrong choice!\n";
+                            break;
+                        }
+                                
+                    if (choice != 7) {
+                        cout << blue+bold+"\n going to main menue";
+                        cin.ignore(100, '\n');
+                        cin.get();
+                    }
+            
+                } while (choice != 7);
+                  break;
     	case 6:
  	   choice =0;
 
@@ -485,8 +587,53 @@ string blood_type[10];
     	case 7:
        choice =0;
 
+      for (int i = 0; i < patient_count; i++) {
+          if (patient_department[i] == "Emergency") {
+              emergency_count++;
+          }
+          total_temperature += patient_temperture[i];
 
-
+          if (patient_temperture[i] > highest_temperature) {
+              highest_temperature = patient_temperture[i];
+          }
+      }
+      if (patient_count > 0) {
+          average_temperatur = total_temperature / patient_count;
+      }
+      cout << bold + green;
+      cout << "====================================================" << endl;
+      cout << "                  HOSPITAL REPORT                   " << endl;
+      cout << "================   ==============================" << endl;
+      cout << bold+blue+"| STATISTIC      | VALUE              |" << endl;
+      cout << green+bold+"================================================" << endl;
+      cout << blue+bold;
+      cout << "| Total Patients          | " << patient_count << endl;
+      cout << "| Emergency Patients      | "<< emergency_count << endl;
+      cout << "| Normal Patients         | "<< patient_count - emergency_count << endl;
+      cout << "| Total Doctors           | "<< doctor_count << endl;
+      cout << "| Highest Temperature     | "<< highest_temperature << endl;
+      cout << "| Average Temperature     | "<< average_temperatur << endl;
+      cout << "=================================================" << endl;
+      cout << "| Departments             |" << endl;
+      cout << green+bold+"==================================================" << endl;
+      cout << blue;
+      for (int i = 0; i < 5; i++) {
+          cout << "| Department " << (i + 1)<< " : " << departments[i] << endl;
+      }
+      cout <<green+bold+ "================================================" << endl;
+      cout << bold+blue+"| Doctor Information                               |" << endl;
+      cout << green+bold+"=============================================="<< endl;
+      cout << blue+bold;
+      for (int i = 0; i < doctor_count; i++) {
+          cout << "| Doctor ID       : " << doctor_ID[i] << endl;
+          cout << "| Doctor Name     : " << doctor_name[i] << endl;
+          cout << "| Department      : " << doctor_department[i] << endl;
+          cout << "| Working Hours   : "<< doctor_working_hours[i] << " hrs" << endl;
+      }
+      cout << bold+green+"=================================================" << endl;
+      cout <<bold +red+"type Enter " << endl;
+      cin.ignore(100, '\n');
+      cin.get();
     	break;
     	case 8:
     	cout << bold+green+" r u sure for leaving? : ";
@@ -494,14 +641,9 @@ string blood_type[10];
     	if (sure =="y"||sure =="Y"||sure =="yes"||sure =="YES"){
     		cout << blue+bold+"bye bye \n";
     	}
-    	
+}    	
     	
     }
-}else if  (cin.fail()){
-    cout << clear;
-	cout << bold+red+"  wrong input\n try again\n";
-	choice = 0;
-    break;
 }
 }while(choice != 8);		
 }
